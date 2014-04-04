@@ -14,7 +14,7 @@
 (defn arity [arg-count func]
   (with-meta func {:arg-count arg-count}))
 
-(defn apply-fn [func arg-count lst]
+(defn apply-func [func arg-count lst]
   (cons (apply func (-> (take arg-count lst) reverse)) (drop arg-count lst)))
 
 (defn qtn [& elems]
@@ -34,6 +34,7 @@
             (assoc state :args (conj args next)))))
       {:args []}
       elems)
+    :func
     (with-meta {:qtn true})))
 
 (defn qtn? [func]
@@ -46,7 +47,7 @@
         (if (function? next)
           (if (qtn? next)
             (cons next lst)
-            (apply-fn next (arg-count next) lst))
+            (apply-func next (arg-count next) lst))
           (cons next lst)))
       []
       elems)
