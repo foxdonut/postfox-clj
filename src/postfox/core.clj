@@ -1,6 +1,6 @@
 (ns postfox.core)
 
-(defn arity [func]
+(defn arg-count [func]
   (->> (class func)
     (.getDeclaredMethods)
     (filter #(= "invoke" (.getName %)))

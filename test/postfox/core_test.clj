@@ -3,12 +3,12 @@
     [clojure.test :refer :all]
     [postfox.core :refer :all]))
 
-(deftest arity-test
-  (testing "arity"
-    (is (= 2 (arity +)))
-    (is (= 1 (arity str)))
-    (is (= 0 (arity (fn [] {}))))
-    (is (= 3 (arity reduce)))))
+(deftest arg-count-test
+  (testing "arg-count"
+    (is (= 2 (arg-count +)))
+    (is (= 1 (arg-count str)))
+    (is (= 0 (arg-count (fn [] {}))))
+    (is (= 3 (arg-count reduce)))))
 
 (deftest postfox-test
   (testing "postfox"
