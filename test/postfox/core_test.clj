@@ -10,6 +10,13 @@
     (is (= 0 (arg-count (fn [] {}))))
     (is (= 3 (arg-count reduce)))))
 
+; regular function definition
+(defn avg1 [x y]
+  (/ (+ x y) 2))
+
+; postfox function definition, with arity and function definition.
+(def avg2 (postfunc + 2 /))
+
 (deftest postfox-test
   (testing "postfox"
     (testing "function length"
@@ -23,6 +30,11 @@
 
     (testing "multiple partial function application in quotation"
       (is (= [16 20 24 28 32] (postfox (qtn 3 + 4 *) [1 2 3 4 5] (arity 2 map)))))
+
+    (testing "postfox function definition"
+      (is (= 42 (postfox 80 4 avg1)))
+      (is (= 42 (postfox 80 4 avg2)))
+      (is (= 27 (postfox 2 80 4 avg2 + 10 avg2))))
 
     (testing "utility functions"
       (is (= 42 (postfox 84 2 /)))
