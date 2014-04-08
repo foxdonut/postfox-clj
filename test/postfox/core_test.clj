@@ -14,8 +14,9 @@
 (defn avg1 [x y]
   (/ (+ x y) 2))
 
-; postfox function definition, with arity and function definition.
+; postfox function definitions
 (def avg2 (postfunc + 2 /))
+(def avg3 (postfunc avg2 avg2))
 
 (deftest postfox-test
   (testing "postfox"
@@ -34,7 +35,8 @@
     (testing "postfox function definition"
       (is (= 42 (postfox 80 4 avg1)))
       (is (= 42 (postfox 80 4 avg2)))
-      (is (= 27 (postfox 2 80 4 avg2 + 10 avg2))))
+      (is (= 27 (postfox 2 80 4 avg2 + 10 avg2)))
+      (is (= 40 (postfox 10 60 80 avg3))))
 
     (testing "utility functions"
       (is (= 42 (postfox 84 2 /)))
